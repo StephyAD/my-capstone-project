@@ -14,14 +14,13 @@ It integrates with [TheNewsAPI](https://www.thenewsapi.com/) to fetch and displa
 
 ---
 
-## 🖼️ Screenshots  
-> _(Add actual screenshots after building UI – below are placeholders)_  
+## 🖼️ Screenshots   
 
 ### 🖥️ Desktop View
-![Desktop Screenshot](./screenshots/desktop.png)
+![Desktop Screenshot](./image.png)
 
 ### 📱 Mobile View
-![Mobile Screenshot](./screenshots/mobile.png)
+![Mobile Screenshot](./image-2.png)
 
 ---
 
