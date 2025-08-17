@@ -1,12 +1,43 @@
-# React + Vite
+# Gold Press
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Gold Press is a modern news reader web app built with **React + Vite** and styled using **Tailwind CSS**.  
+It integrates with [TheNewsAPI](https://www.thenewsapi.com/) to fetch and display the latest headlines in a clean, responsive interface.  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
+- 📌 Browse the latest live news articles  
+- 🔍 View headlines, descriptions, and images  
+- 🌐 Click through to full articles  
+- 📱 Responsive design for desktop and mobile  
+- ⚡ Fast performance with React + Vite  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🖼️ Screenshots  
+> _(Add actual screenshots after building UI – below are placeholders)_  
+
+### 🖥️ Desktop View
+![Desktop Screenshot](./screenshots/desktop.png)
+
+### 📱 Mobile View
+![Mobile Screenshot](./screenshots/mobile.png)
+
+---
+
+## ⚙️ Tech Stack
+- **Frontend:** React + Vite  
+- **Styling:** Tailwind CSS  
+- **API:** [TheNewsAPI](https://www.thenewsapi.com/)  
+- **Version Control:** Git & GitHub  
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to run Gold Press locally:
+
+### 1️⃣ Clone the Repository
+```bash
+git clone  https://github.com/StephyAD/my-capstone-project.git
+cd my-news-reader-app
