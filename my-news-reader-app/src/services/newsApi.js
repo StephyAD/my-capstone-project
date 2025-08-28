@@ -1,10 +1,9 @@
 // services/newsApi.js
-const API_KEY = "YOUR_API_KEY"; // put your actual key here or better: use .env
+const API_KEY = import.meta.env.VITE_NEWS_API_KEY; // use env variable
 const BASE_URL = "https://api.thenewsapi.com/v1/news/top";
 
 export async function fetchLatestNews(category = "General") {
   try {
-    // Map frontend category names to API category params
     const categoryMap = {
       General: "general",
       Politics: "politics",
