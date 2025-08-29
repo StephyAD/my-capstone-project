@@ -9,6 +9,7 @@ function NewsCard({ article, onOpen }) {
       {/* Thumbnail */}
       {article.image_url && (
         <img
+          width={900}
           src={article.image_url}
           alt={article.title}
           className="w-full md:w-80 h-60 object-cover rounded-lg shadow"

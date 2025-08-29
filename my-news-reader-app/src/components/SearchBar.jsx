@@ -3,6 +3,7 @@ export default function SearchBar({ query, setQuery }) {
     <div className="max-w-2xl mx-auto mb-8">
       <input
         type="text"
+        class="setH"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search news..."

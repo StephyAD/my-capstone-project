@@ -6,6 +6,9 @@ import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 import SearchBar from "./components/SearchBar";
 import NewsCard from "./components/NewsCard";
 import ArticleDetails from "./components/ArticleDetails";
+import { MdPadding } from "react-icons/md";
+import { BsJustify } from "react-icons/bs";
+import './index.css';
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -14,6 +17,27 @@ function App() {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("General");
   const [selectedArticle, setSelectedArticle] = useState(null);
+
+  const backgroundStyle = {
+    backgroundColor :'white',
+    padding:'10px',
+  
+    
+    
+  };
+
+  const textColorStyle = {
+    color:'black'
+  };
+
+  const moveItemsToRigth = {
+    float:'right'
+  };
+
+
+
+
+
 
   useEffect(() => {
     const getNews = async () => {
@@ -42,7 +66,7 @@ function App() {
   });
 
   return (
-    <div className="bg-white min-h-screen flex flex-col">
+    <div className="bg-white min-h-screen flex flex-col" style={backgroundStyle}>
       {/* HEADER */}
       <header className="bg-white text-black flex justify-between items-center px-8 py-4 shadow-sm">
         <h1 className="text-xl font-extrabold">Gold Press</h1>
@@ -50,9 +74,9 @@ function App() {
           <div className="w-6 h-6 bg-purple-700 rounded-full"></div>
         </div>
       </header>
-
+      
       {/* TABS */}
-      <nav className="flex justify-center space-x-6 border-b border-gray-300 mt-4">
+      <nav className="flex justify-center space-x-6 border-b border-gray-300 mt-4" > 
         {["General", "Politics", "Sports", "Entertainment"].map((tab) => (
           <button
             key={tab}
@@ -81,7 +105,7 @@ function App() {
         ) : filteredArticles.length === 0 ? (
           <p className="text-center text-gray-500">No articles found.</p>
         ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" style={textColorStyle}>
             {filteredArticles.map((article) => (
               <NewsCard
                 key={article.uuid}
@@ -95,12 +119,14 @@ function App() {
 
       {/* FOOTER */}
       <footer className="bg-black text-white py-6 px-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-        <p className="text-sm">2025 Gold Press | Powered by Stephanie</p>
-        <div className="flex space-x-4">
+        <p className="text-sm" style={textColorStyle}>2025 Gold Press | Powered by Stephanie</p>
+        <div className="container mx-auto p-4">
+          <div className="flex space-x-4 grind justify-items-end float-right" style={moveItemsToRigth}> 
           <a href="#" className="bg-white p-2 rounded-full text-black"><FaFacebook size={18} /></a>
           <a href="#" className="bg-white p-2 rounded-full text-black"><FaInstagram size={18} /></a>
           <a href="#" className="bg-white p-2 rounded-full text-black"><FaTwitter size={18} /></a>
           <a href="#" className="bg-white p-2 rounded-full text-black"><FaYoutube size={20} /></a>
+        </div>
         </div>
       </footer>
 
