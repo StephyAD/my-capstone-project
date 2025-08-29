@@ -1,39 +1,53 @@
+// src/App.jsx
 import { useEffect, useState } from "react";
 import { fetchLatestNews } from "./services/newsApi";
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+
 import SearchBar from "./components/SearchBar";
+import NewsCard from "./components/NewsCard";
+import ArticleDetails from "./components/ArticleDetails";
 
 function App() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("General");
+  const [selectedArticle, setSelectedArticle] = useState(null);
 
   useEffect(() => {
     const getNews = async () => {
-      const news = await fetchLatestNews(activeCategory); // pass category
-      setArticles(news);
-      setLoading(false);
+      setLoading(true);
+      setError(null);
+      try {
+        const news = await fetchLatestNews(activeCategory);
+        // debug: console.log("news:", news);
+        setArticles(news || []);
+      } catch (err) {
+        setError("Failed to load articles. Check console for details.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
     getNews();
-  }, [activeCategory]); // refetch when category changes
+  }, [activeCategory]);
 
-  if (loading) return <h1 className="text-center text-2xl mt-10">Loading...</h1>;
-
-  // Filter by search query
-  const filteredArticles = articles.filter((article) =>
-    article.title.toLowerCase().includes(query.toLowerCase())
-  );
+  const filteredArticles = articles.filter((article) => {
+    const q = query.trim().toLowerCase();
+    if (!q) return true;
+    const title = (article.title || "").toLowerCase();
+    const desc = (article.description || article.snippet || "").toLowerCase();
+    return title.includes(q) || desc.includes(q);
+  });
 
   return (
     <div className="bg-white min-h-screen flex flex-col">
       {/* HEADER */}
       <header className="bg-white text-black flex justify-between items-center px-8 py-4 shadow-sm">
-        <h1 className="text-1xl font-extrabold font-['Roboto_Serif'] mt-[-4px]">
-          Gold Press
-        </h1>
-        <div className="w-14 h-14 bg-gray-200 rounded-full flex items-center justify-center">
-          <div className="w-7 h-7 bg-purple-700 rounded-full"></div>
+        <h1 className="text-xl font-extrabold">Gold Press</h1>
+        <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+          <div className="w-6 h-6 bg-purple-700 rounded-full"></div>
         </div>
       </header>
 
@@ -54,43 +68,28 @@ function App() {
         ))}
       </nav>
 
-      {/* MAIN CONTENT */}
-      <main className="flex-1 max-w-6xl mx-auto px-6 py-10 space-y-10">
+      {/* MAIN */}
+      <main className="flex-1 max-w-6xl mx-auto px-6 py-10">
         <SearchBar query={query} setQuery={setQuery} />
 
-        {filteredArticles.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <div className="w-12 h-12 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin" />
+          </div>
+        ) : error ? (
+          <p className="text-center text-red-500">{error}</p>
+        ) : filteredArticles.length === 0 ? (
           <p className="text-center text-gray-500">No articles found.</p>
         ) : (
-          filteredArticles.map((article) => (
-            <div
-              key={article.uuid}
-              className="flex flex-col md:flex-row gap-6 items-start"
-            >
-              {article.image_url && (
-                <img
-                  src={article.image_url}
-                  alt={article.title}
-                  className="w-full md:w-80 h-60 object-cover rounded-lg shadow"
-                />
-              )}
-              <div className="flex-1">
-                <h2 className="text-2xl font-serif mb-3">{article.title}</h2>
-                <p className="text-gray-600 text-sm mb-2">
-                  {new Date(article.published_at).toLocaleDateString()} |{" "}
-                  {article.source}
-                </p>
-                <p className="text-gray-700 mb-3">{article.snippet}</p>
-                <a
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline text-sm"
-                >
-                  Read More →
-                </a>
-              </div>
-            </div>
-          ))
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredArticles.map((article) => (
+              <NewsCard
+                key={article.uuid}
+                article={article}
+                onOpen={(a) => setSelectedArticle(a)}
+              />
+            ))}
+          </div>
         )}
       </main>
 
@@ -98,20 +97,20 @@ function App() {
       <footer className="bg-black text-white py-6 px-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         <p className="text-sm">2025 Gold Press | Powered by Stephanie</p>
         <div className="flex space-x-4">
-          <a href="#" className="bg-white p-2 rounded-full text-black">
-            <FaFacebook size={20} />
-          </a>
-          <a href="#" className="bg-white p-2 rounded-full text-black">
-            <FaInstagram size={20} />
-          </a>
-          <a href="#" className="bg-white p-2 rounded-full text-black">
-            <FaTwitter size={20} />
-          </a>
-          <a href="#" className="bg-white p-2 rounded-full text-black">
-            <FaYoutube size={20} />
-          </a>
+          <a href="#" className="bg-white p-2 rounded-full text-black"><FaFacebook size={18} /></a>
+          <a href="#" className="bg-white p-2 rounded-full text-black"><FaInstagram size={18} /></a>
+          <a href="#" className="bg-white p-2 rounded-full text-black"><FaTwitter size={18} /></a>
+          <a href="#" className="bg-white p-2 rounded-full text-black"><FaYoutube size={20} /></a>
         </div>
       </footer>
+
+      {/* Modal details */}
+      {selectedArticle && (
+        <ArticleDetails
+          article={selectedArticle}
+          onClose={() => setSelectedArticle(null)}
+        />
+      )}
     </div>
   );
 }
