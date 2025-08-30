@@ -14,15 +14,6 @@ It integrates with [TheNewsAPI](https://www.thenewsapi.com/) to fetch and displa
 
 ---
 
-## 🖼️ Screenshots   
-
-### 🖥️ Desktop View
-![Desktop Screenshot](./image.png)
-
-### 📱 Mobile View
-![Mobile Screenshot](./image-2.png)
-
----
 
 ## ⚙️ Tech Stack
 - **Frontend:** React + Vite  
