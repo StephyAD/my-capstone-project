@@ -2,12 +2,9 @@
 import { useEffect, useState } from "react";
 import { fetchLatestNews } from "./services/newsApi";
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
-
 import SearchBar from "./components/SearchBar";
 import NewsCard from "./components/NewsCard";
 import ArticleDetails from "./components/ArticleDetails";
-import { MdPadding } from "react-icons/md";
-import { BsJustify } from "react-icons/bs";
 import './index.css';
 
 function App() {
@@ -21,24 +18,15 @@ function App() {
   const backgroundStyle = {
     backgroundColor :'white',
     padding:'10px',
-  
-    
-    
   };
-
-  const textColorStyle = {
+   const textColorStyle = {
     color:'black'
   };
-
-  const moveItemsToRigth = {
+   const moveItemsToRigth = {
     float:'right'
   };
 
-
-
-
-
-
+    
   useEffect(() => {
     const getNews = async () => {
       setLoading(true);
